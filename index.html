@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Table Sort Application</title>
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<link rel="stylesheet" href="css/table.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+<script src="js/table.js"></script>
+</head>
+
+<body ng-app="tableApp" ng-controller="tableRegisterCtrl">
+<h1 style="text-align: center; background-color: black;color: white;">Table Sort Application</h1>
+<form class="form-horizontal" name="form" role="form" ng-submit="addRow()" novalidate>
+<div class="form-group"><div class="col-md-4"><h3>Login Details</h3></div></div>
+ 	<div class="form-group">
+ 		<label class="col-md-2 control-label">Username<span class="mand">*</span></label>
+ 		<div class="col-md-4">
+ 			<input type="text" class="form-control" name="name"
+ 				ng-model="name" ng-model-options="{updateOn:'blur'}"
+         pattern=".{2,}" required />
+         </div>
+        <div class="col-md-4">
+        <div class="error-message"
+                 ng-show="form.name.$invalid && !form.name.$pristine">
+                We need a name with 2 chars or more.
+            </div>
+ 		</div>
+ 	</div>
+ 	<div class="form-group">
+ 		<label class="col-md-2 control-label">Password<span class="mand">*</span></label>
+ 		<div class="col-md-4">
+ 			<input type="password" class="form-control" name="password"
+ 				ng-model="password" pattern=".{2,}" required/>
+      </div>
+     <div class="col-md-4">
+       <div class="error-message"
+                ng-show="form.password.$invalid && !form.password.$pristine">
+               Passwords must have at least 2 chars.
+           </div>
+ 		</div>
+ 	</div>
+  <div class="form-group">
+ 		<label class="col-md-2 control-label">Re- Enter Password<span class="mand">*</span></label>
+ 		<div class="col-md-4">
+ 			<input type="password" class="form-control" name="repassword"
+ 				ng-model="repassword"
+        wj-validation-error="repassword != password ? 'Passwords don\'t match' : ''" required/>
+      </div>
+     <div class="col-md-4">
+       <div class="error-message"
+                ng-show="form.repassword.$invalid && !form.repassword.$pristine">
+               Sorry, the passwords don't match.
+           </div>
+ 		</div>
+ 	</div>
+
+  <hr>
+
+  <div class="form-group">
+ 		<label class="col-md-2 control-label">First name<span class="mand">*</span></label>
+ 		<div class="col-md-4">
+ 			<input type="text" class="form-control" name="fname"
+ 				ng-model="fname" ng-model-options="{updateOn:'blur'}"
+         pattern=".{2,}" required />
+         </div>
+        <div class="col-md-4">
+        <div class="error-message"
+                 ng-show="form.fname.$invalid && !form.fname.$pristine">
+                We need a name with 2 chars or more.
+            </div>
+ 		</div>
+ 	</div>
+
+  <div class="form-group">
+ 		<label class="col-md-2 control-label">Last name<span class="mand">*</span></label>
+ 		<div class="col-md-4">
+ 			<input type="text" class="form-control" name="lname"
+ 				ng-model="lname" ng-model-options="{updateOn:'blur'}"
+         pattern=".{2,}" required />
+         </div>
+        <div class="col-md-4">
+        <div class="error-message"
+                 ng-show="form.lname.$invalid && !form.lname.$pristine">
+                We need a name with 2 chars or more.
+            </div>
+ 		</div>
+ 	</div>
+
+ 	<div class="form-group">
+ 		<label class="col-md-2 control-label">Email<span class="mand">*</span></label>
+ 		<div class="col-md-4">
+ 			<input type="email" class="form-control" name="Email"
+ 				ng-model="Email" ng-model-options="{updateOn:'blur'}"
+        required/>
+      </div>
+     <div class="col-md-4">
+       <div class="error-message"
+                ng-show="form.Email.$invalid && !form.Email.$pristine">
+               We need a valid e-mail address.
+           </div>
+ 		</div>
+ 	</div>
+
+  <div class="form-group">
+ 		<label class="col-md-2 control-label">Phone</label>
+ 		<div class="col-md-4">
+ 			<input type="phone" class="form-control" name="phone" ng-minlength="10"
+             ng-maxlength="10"
+ 				ng-model="phone" ng-pattern="onlyNumbers" />
+      </div>
+      <div class="col-md-4">
+        <div class="error-message"
+                 ng-show="form.phone.$invalid && !form.phone.$pristine">
+                We need a valid phone number of length 10 (onlyNumbers).
+            </div>
+  		</div>
+ 	</div>
+
+  <div class="form-group">
+ 		<label class="col-md-2 control-label">Lab</label>
+ 		<div class="col-md-4">
+ 			<input type="text" class="form-control" name="lab"
+ 				ng-model="lab"/>
+      </div>
+ 	</div>
+
+  <div class="form-group">
+ 		<label class="col-md-2 control-label">Comments</label>
+    <div class="col-md-4">
+      <span class="mand">Please include of brief description to improve the site</span>
+    </div>
+ 		<div class="col-md-8">
+ 			<textarea type="text" class="form-control" name="com"
+ 				ng-model="com"></textarea>
+      </div>
+ 	</div>
+
+ 	<div class="form-group">
+ 		<div style="padding-left:110px">
+ 			<input type="submit" value="Submit" class="btn btn-primary"  ng-disabled="form.$invalid"/>
+ 		</div>
+ 	</div>
+ </form>
+
+  <table class="table">
+  	<tr>
+  		<th>Name
+  		</th>
+  		<th>Password
+  		</th>
+      <th>Re-Password
+  		</th>
+      <th><a href="#" ng-click="orderByField='fName'; reverseSort = !reverseSort">
+	  First Name<span ng-show="orderByField == 'firstName'"><span ng-show="!reverseSort">^</span><span ng-show="reverseSort">v</span></span>
+          </a>
+  		</th>
+      <th>Last Name
+  		</th>
+  		<th>Email
+  		</th>
+      <th>Phone
+  		</th>
+      <th>Lab
+  		</th>
+      <th>Comments
+  		</th>
+      <!--<th>Action
+		</th>-->
+  	</tr>
+  	<tr ng-repeat="register in users | orderBy:orderByField:reverseSort">
+  		<td>{{register.name}}
+  		</td>
+  		<td>{{register.password}}
+  		</td>
+      <td>{{register.repassword}}
+  		</td>
+      <td>{{register.fname}}
+  		</td>
+      <td>{{register.lname}}
+  		</td>
+  		<td>{{register.Email}}
+  		</td>
+      <td>{{register.phone}}
+  		</td>
+      <td>{{register.lab}}
+  		</td>
+      <td>{{register.com}}
+  		</td>
+      <!--<td>
+		<input type="button" value="Remove" class="btn btn-primary" ng-click="removeRow(company.name)"/>
+  </td>-->
+  	</tr>
+  </table>
+
+</body>
+</html>
